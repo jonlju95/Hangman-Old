@@ -5,11 +5,12 @@ import java.util.*;
 public class Hangman {
 	
 	static StringBuilder build = new StringBuilder();
+	static int tries = 0;
 	
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
 		String answer = "worwd";
-		int tries = 0;
+		
 		char[] empty = new char[answer.length()];
 		for(int i=0; i<empty.length; i++) {
 			empty[i] = '_';
@@ -23,24 +24,30 @@ public class Hangman {
 			if(reply.equals("1")) {
 				System.out.println("\nGuess a letter: ");
 				guess = in.nextLine();
-				oneLetter(guess.charAt(0), answer);
-				tries++;
-				System.out.println(build.toString());
+				if(build.toString().contains(guess)) {
+					System.out.println("You've already guessed that letter");
+				}
+				else {
+					oneLetter(guess.charAt(0), answer);
+				}
+				System.out.println("\n" + build.toString());
 			}
 			else if(reply.equals("2")) {
-				
+				System.out.println("\nGuess the word: ");
+				guess = in.nextLine();
+				wholeWord(guess, answer);
+				tries++;
 			}
 			else {
 				System.out.println("Wrong entry! Try again.\n");
 			}
+			if(build.toString().equals(answer)) {
+				System.out.println("\nYou win!");
+				in.close();
+				System.exit(0);
+			}
 		}
-		if(build.toString().equals(answer)) {
-			System.out.println("You win!");
-		}
-		else {
-			System.out.println("Game over");
-		}
-		
+		System.out.println("Game over");
 	}
 	
 	public static void oneLetter(char guess, String answer) {
@@ -53,6 +60,7 @@ public class Hangman {
 	
 	public static void wholeWord(String guess, String answer) {
 		if(guess.equalsIgnoreCase(answer)) {
+			build.replace(0, answer.length(), guess);
 		}
 		else {
 			
