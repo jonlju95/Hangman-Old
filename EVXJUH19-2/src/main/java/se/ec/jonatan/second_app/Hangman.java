@@ -11,11 +11,8 @@ public class Hangman {
 	
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
-		
-		
 		for(int i=0; i<empty.length; i++) {
 			empty[i] = '_';
-			build.append(empty[i]);
 		}
 		while(tries<8) {
 			System.out.println(Arrays.toString(empty)+"\n");
@@ -31,6 +28,7 @@ public class Hangman {
 				}
 				else {
 					oneLetter(guess.charAt(0), answer);
+					System.out.println();
 				}
 			}
 			else if(reply.equals("2")) {
@@ -42,16 +40,18 @@ public class Hangman {
 			else {
 				System.out.println("Wrong entry! Try again.\n");
 			}
-			if(build.toString().equals(answer)) {
-				System.out.println("\nYou win!");
+			if(printArray(empty).equals(answer)) {
+				System.out.println("You win!");
 				in.close();
 				System.exit(0);
 			}
 		}
-		System.out.println("Game over");
+		System.out.println("Game over! \nThe word was " + answer);
 	}
 	
 	public static void oneLetter(char guess, String answer) {
+		build.append(guess);
+		System.out.println("Guesses: " + build.toString());
 		for(int i=0; i<answer.length(); i++) {
 			if(!answer.contains(Character.toString(guess))) {
 				tries++;
@@ -60,7 +60,6 @@ public class Hangman {
 		}
 		for(int i=0; i<answer.length(); i++) {
 			if(answer.charAt(i)==guess) {
-				build.setCharAt(i, guess);
 				empty[i] = guess;
 			}
 		}
@@ -75,5 +74,13 @@ public class Hangman {
 				empty[i] = guess.charAt(i);
 			}
 		}
+	}
+	
+	public static String printArray(char[] arr) {
+		StringBuilder temp = new StringBuilder();
+		for(int i=0; i<arr.length; i++) {
+			temp.append(arr[i]);
+		}
+		return temp.toString();
 	}
 }
