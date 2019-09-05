@@ -6,11 +6,14 @@ public class Hangman {
 	
 	private static StringBuilder build = new StringBuilder();
 	private static int tries = 0;
-	private static String answer = "worwd";
-	private static char[] empty = new char[answer.length()];
+	private static String[] words = {"java", "programming", "computer", "education"};
+	private static char[] empty;
+	private static Random rng = new Random();
+	private static String answer = words[rng.nextInt(words.length)];
 	
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
+		empty = new char[answer.length()];
 		for(int i=0; i<empty.length; i++) {
 			empty[i] = '_';
 		}
@@ -41,7 +44,7 @@ public class Hangman {
 				System.out.println("Wrong entry! Try again.\n");
 			}
 			if(printArray(empty).equals(answer)) {
-				System.out.println("You win!");
+				System.out.println("You win! \nThe word is: " + answer);
 				in.close();
 				System.exit(0);
 			}
@@ -67,12 +70,13 @@ public class Hangman {
 	
 	public static void wholeWord(String guess, String answer) {
 		if(guess.equalsIgnoreCase(answer)) {
-			build.replace(0, answer.length(), guess);
-		}
-		else {
 			for(int i=0; i<answer.length(); i++) {
 				empty[i] = guess.charAt(i);
 			}
+		}
+		else {
+			System.out.println("Wrong\n");
+			tries++;
 		}
 	}
 	
