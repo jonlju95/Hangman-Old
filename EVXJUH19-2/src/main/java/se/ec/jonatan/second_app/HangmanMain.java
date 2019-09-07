@@ -8,6 +8,7 @@ public class HangmanMain {
 		Scanner in = new Scanner(System.in);
 		game.setAnswer();
 		game.setCharArr();
+		
 		while(game.usedTries()<8) {
 			System.out.println(Arrays.toString(game.getCharArr())+"\n");
 			System.out.println("Do you want to guess a letter or the entire word? "
