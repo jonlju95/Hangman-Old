@@ -15,11 +15,11 @@ public class Hangman {
 		build = new StringBuilder();
 		tries = 0;
 		rng = new Random();
-		words = new String[] {"java", "programming", "computer", "education"};
+		words = new String[] {"java", "computer", "education", "programming"};
 	}
 	
 	public int usedTries() {
-		return tries++;
+		return tries;
 	}
 	
 	public void setCharArr() {
@@ -53,6 +53,7 @@ public class Hangman {
 		for(int i=0; i<answer.length(); i++) {
 			if(!answer.contains(Character.toString(guess))) {
 				System.out.println("Wrong\n");
+				tries++;
 				return;
 			}
 		}
@@ -71,6 +72,7 @@ public class Hangman {
 		}
 		else {
 			System.out.println("Wrong\n");
+			tries++;
 		}
 	}
 	

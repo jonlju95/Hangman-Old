@@ -8,10 +8,9 @@ public class HangmanMain {
 		Scanner in = new Scanner(System.in);
 		game.setAnswer();
 		game.setCharArr();
-		
 		while(game.usedTries()<8) {
 			System.out.println(Arrays.toString(game.getCharArr())+"\n");
-			System.out.println("Do you want to guess a letter or the entire word? "
+			System.out.println("Do you want to guess a letter or the entire word?"
 								+ "\nType 1 for letter and 2 for word.");
 			String reply = in.nextLine();
 			String guess;
@@ -23,15 +22,14 @@ public class HangmanMain {
 				}
 				else {
 					game.oneLetter(guess.charAt(0), game.getAnswer());
+					game.setGuesses(guess);
 				}
-				game.setGuesses(guess);
 				System.out.println("\nGuesses: " + game.getGuesses());
 			}
 			else if(reply.equals("2")) {
 				System.out.print("\nGuess the word: ");
 				guess = in.nextLine();
 				game.wholeWord(guess, game.getAnswer());
-				game.usedTries();
 			}
 			else {
 				System.out.println("Wrong entry! Try again.\n");
